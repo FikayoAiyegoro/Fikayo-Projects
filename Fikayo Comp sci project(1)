@@ -1,0 +1,145 @@
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <numeric>
+
+using namespace std;
+
+	int main() {
+	
+
+	cout << "+-----------------------------------------------+\n";
+	cout << "|	Computer Science and Engineering    	 |\n";
+	cout << "|	CSCE 1040 - Computer Programming II 	 |\n";
+	cout << "|   Fikayo Aiyegoro Oca0032 Oca0032@my.unt.edu	 |\n";
+	cout << "+-----------------------------------------------+\n";
+	cout << "\n";
+	cout << "\n";
+
+		enum Menu{Display_Number_in_List = 1, Add_Number_to_list = 2, Remove_Number_From_List = 3, Compute_Average_Of_List_Of_Numbers = 4, Compute_Minimum_Of_List_Of_Numbers = 5, Compute_Maximum_Of_List = 6, Exit_Program = 7 };
+
+	// an enum to initialize menu options with the key the user would have to press	
+
+
+	vector<double> nums;
+	//vector to store the list of floating point numbers the types
+
+//while loop that keeps looping back to the main menu after the user picked a menu option and the menu option task was completed
+	while(true) {
+	int choice;
+	cout << "What would you like to do?\n1. Display_Number_in_List\n2. Add_Number_to_list\n3. Remove_Number_From_List\n4. Compute_Average_Of_List_Of_Numbers\n5. Compute_Minimum_Of_List_Of_Numbers\n6. Compute_Maximum_Of_List;\n7. Exit_Program" << endl;
+		
+	//print the menu for the user
+	cin >> choice;
+	
+	while( choice < 1 || choice > 7 ) {
+	if( choice < 1 || choice > 7 ){ 
+		cout << "Invalid choice try again" << endl;
+	cin >> choice;
+	}
+	else {
+		cout << "Valid choice" << endl; 
+	}	
+}
+ // while loop that loops until the user picks a valid number from the menu
+
+	switch(choice) { //switch case that defines the actions of the menu options
+
+		case Display_Number_in_List: //display case displays the numbers the user enters, else if no numbers, it says there is no numbers
+			if ( nums.empty()) {
+				cout << "There is no numbers" << endl;
+			}
+			else {
+			 for ( int i = 0; i < nums.size(); ++i ) {
+				cout << nums[i] << " ";  //prints out the numbers in the vector list
+			}
+		
+			cout << endl;
+			}
+			
+			break;
+		case Add_Number_to_list: //takes the user input to add numbers to the list, and puts it behind the number added before it
+			double add;
+			cout << "Enter a floating point number to add to the list" << endl;
+			cin >> add;
+			nums.push_back(add);
+			cout << add << " Added to list" << endl;
+			
+		        break;
+		case Remove_Number_From_List: //allows the user to remove specific numbers from the vector list the user added, if theres no numbers in the vector list it says there is none
+				 	   
+			if ( nums.empty()) {
+				cout << "There is no number to remove" << endl;
+			}
+			else {
+			double target;
+			cout << "Enter the number you want to remove from your list" << endl;
+			cin >> target;	
+			auto it = find(nums.begin(), nums.end(), target);
+			
+			if ( it != nums.end() ) {
+				nums.erase(it);
+				cout << "Your number was removed" << endl; // removes the number from the vector list if its in the list
+			}
+			else {
+				double removed = nums.back();		  //if your number wasnt found it removes the last number added to the list
+				nums.pop_back();
+				cout << removed << " was removed" << endl;
+			}
+		}
+			
+			break;
+		case Compute_Average_Of_List_Of_Numbers: //compute the sum of the vector list then divides the sum of the list by the size of the list
+			if (nums.empty()){
+				cout << "There is no numbers" << endl;
+			}
+			else {
+			double sum = accumulate(nums.begin(), nums.end(), 0.0);
+			double average = sum / nums.size();
+			cout << average << " is the average" << endl;
+			}
+			break;
+		case Compute_Minimum_Of_List_Of_Numbers: //if there is no numbers in the list it says there is none
+			if ( nums.empty() ) {
+				cout << "Theres no numbers" << endl;
+			}
+			else {
+			double min = nums[0];		// goes through the entire vector list and keeps setting num[i] to min when num[i] < min
+			for ( int i = 0; i < nums.size(); ++i ) {
+			if (nums[i] < min ) {
+				min = nums[i];
+			}
+		}
+			cout << min << " is your minimum" << endl;
+		}
+			
+			break;
+		case  Compute_Maximum_Of_List: //if there is no numbers in the list it says there is none
+			if ( nums.empty() ) {
+				cout << "Theres no numbers" << endl;
+			}
+			else {
+			double max = nums[0];	//goes through the entire vector list and keeps setting num[i] = max when num[i] > max
+			for ( int i = 0; i < nums.size(); ++i ) {
+			if ( nums[i] > max ) {
+				max = nums[i];
+			}	
+		}
+			cout << max << " is your max" << endl;
+			}
+			break;
+		case Exit_Program:
+			cout <<"Progam is terminating" << endl;	//terminates the program 
+			return 1;
+			
+			break;
+		default:
+			cout << "Out of range" << endl;		//default case
+			return 1;
+
+			break;
+		} 
+}
+	return 0;
+}
+
